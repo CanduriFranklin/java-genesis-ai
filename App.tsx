@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ChevronLeft, ChevronRight, BookOpen, Cpu, Sparkles, Send, MessageSquare } from 'lucide-react';
+import { ChevronLeft, ChevronRight, BookOpen, Cpu, Sparkles, Send, MessageSquare, ExternalLink, Bookmark } from 'lucide-react';
 import { BOOK_PAGES, AUTHOR_NAME } from './constants';
 import { PageType, ChatMessage } from './types';
 import { CodeBlock } from './components/CodeBlock';
@@ -80,6 +80,25 @@ const App: React.FC = () => {
             <p className="text-gray-400 max-w-lg mx-auto leading-relaxed border-t border-white/10 pt-6">
               {currentPage.content[0]}
             </p>
+            
+            {/* Cover Links */}
+            {currentPage.links && (
+              <div className="flex flex-wrap justify-center gap-4 mt-6">
+                 {currentPage.links.map((link, idx) => (
+                    <a 
+                      key={idx}
+                      href={link.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center px-4 py-2 text-xs font-mono border border-white/10 rounded-full hover:bg-white/10 hover:border-neon-cyan text-gray-400 hover:text-white transition-all"
+                    >
+                      <ExternalLink size={12} className="mr-2" />
+                      {link.title}
+                    </a>
+                 ))}
+              </div>
+            )}
+
             <div className="mt-12">
                <span className="text-sm font-mono text-neon-purple">AUTHOR</span>
                <p className="text-xl font-bold text-white">{AUTHOR_NAME}</p>
@@ -150,6 +169,39 @@ const App: React.FC = () => {
                 ))}
               </div>
             )}
+            
+            {/* Official Resources / Knowledge Base */}
+            {currentPage.links && (
+              <div className="my-10 border-t border-white/10 pt-6">
+                <h3 className="flex items-center text-neon-cyan font-mono text-sm tracking-widest mb-4">
+                  <Bookmark size={14} className="mr-2" />
+                  KNOWLEDGE BASE
+                </h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {currentPage.links.map((link, idx) => (
+                    <a 
+                      key={idx}
+                      href={link.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-between p-3 rounded-lg bg-white/5 border border-white/5 hover:bg-white/10 hover:border-neon-cyan/50 transition-all group"
+                    >
+                      <div className="flex items-center space-x-3">
+                         <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${
+                           link.type === 'DOCS' ? 'bg-blue-900/50 text-blue-200' : 
+                           link.type === 'TOOL' ? 'bg-purple-900/50 text-purple-200' : 
+                           'bg-gray-700 text-gray-200'
+                         }`}>
+                           {link.type}
+                         </span>
+                         <span className="text-sm text-gray-300 font-medium group-hover:text-white">{link.title}</span>
+                      </div>
+                      <ExternalLink size={14} className="text-gray-500 group-hover:text-neon-cyan transition-colors" />
+                    </a>
+                  ))}
+                </div>
+              </div>
+            )}
 
             {/* Call to Action / Closing */}
             {currentPage.cta && (
@@ -189,7 +241,7 @@ const App: React.FC = () => {
         <header className="fixed top-0 w-full z-50 glass-panel border-b-0 border-white/5 px-6 py-4 flex justify-between items-center">
           <div className="flex items-center space-x-2">
             <BookOpen className="text-neon-cyan" size={20} />
-            <span className="font-bold text-white tracking-wider text-sm hidden sm:inline">JAVA GENESIS</span>
+            <span className="font-bold text-white tracking-wider text-sm hidden sm:inline">JAVA GENESIS AI</span>
           </div>
           <div className="flex items-center space-x-4">
              <div className="text-xs font-mono text-gray-500">

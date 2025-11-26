@@ -1,7 +1,7 @@
 import { BookPage, PageType } from './types';
 
 export const AUTHOR_NAME = "Developer Canduri Franklin";
-export const BOOK_TITLE = "JAVA GENESIS";
+export const BOOK_TITLE = "JAVA GENESIS AI";
 export const BOOK_SUBTITLE = "THE ERA OF AUGMENTED DEVELOPMENT";
 
 export const BOOK_PAGES: BookPage[] = [
@@ -14,7 +14,11 @@ export const BOOK_PAGES: BookPage[] = [
       "How Generative AI is redefining productivity, elevating quality, and transforming programmers into architects within the Java ecosystem."
     ],
     visualDescription: "A futuristic AI robot holding a glowing Java crystal",
-    imageUrl: "https://picsum.photos/seed/cover/800/800?grayscale" 
+    imageUrl: "https://picsum.photos/seed/cover/800/800?grayscale",
+    links: [
+      { title: "Java 21 Features", url: "https://openjdk.org/projects/jdk/21/", type: "DOCS" },
+      { title: "Google AI for Developers", url: "https://ai.google.dev/", type: "TOOL" }
+    ]
   },
   {
     id: 2,
@@ -30,6 +34,10 @@ export const BOOK_PAGES: BookPage[] = [
       "**Reduced Manual Labor:** Automate up to 40% of repetitive tasks.",
       "**Business Focus:** Reclaim hours lost to configuration and invest them in solving real-world problems.",
       "**Velocity:** Accelerate from concept to deployment in record time."
+    ],
+    links: [
+      { title: "Project Lombok", url: "https://projectlombok.org/", type: "TOOL" },
+      { title: "Java Records Guide", url: "https://docs.oracle.com/en/java/javase/17/language/records.html", type: "DOCS" }
     ],
     cta: "AI won't take your job. A Java developer who masters AI will replace one who refuses to use it."
   },
@@ -49,6 +57,12 @@ export const BOOK_PAGES: BookPage[] = [
       "**Docs & Observability:** OpenAPI (Swagger), Micrometer + Prometheus.",
       "**Resilience & Migration:** Resilience4j, Flyway.",
       "**Code Style:** Tactical DDD, Hexagonal Architecture, Records for DTOs, Sealed Classes."
+    ],
+    links: [
+      { title: "Spring Boot Documentation", url: "https://spring.io/projects/spring-boot", type: "DOCS" },
+      { title: "TestContainers", url: "https://testcontainers.com/", type: "TOOL" },
+      { title: "Resilience4j", url: "https://resilience4j.readme.io/", type: "DOCS" },
+      { title: "MapStruct", url: "https://mapstruct.org/", type: "TOOL" }
     ]
   },
   {
@@ -90,6 +104,10 @@ export const BOOK_PAGES: BookPage[] = [
         caption: "6. Architecture Design",
         code: `Suggest a package structure for a Java application based on microservices with a DDD approach and hexagonal architecture.`
       }
+    ],
+    links: [
+      { title: "Prompt Engineering Guide", url: "https://www.promptingguide.ai/", type: "ARTICLE" },
+      { title: "Google Gemini API Docs", url: "https://ai.google.dev/gemini-api/docs", type: "DOCS" }
     ]
   },
   {
@@ -124,6 +142,11 @@ void updateNonExistentUserThrowsException() {
     });
 }`
       }
+    ],
+    links: [
+      { title: "Spring Data JPA Reference", url: "https://docs.spring.io/spring-data/jpa/reference/", type: "DOCS" },
+      { title: "JUnit 5 User Guide", url: "https://junit.org/junit5/docs/current/user-guide/", type: "DOCS" },
+      { title: "Mockito Documentation", url: "https://javadoc.io/doc/org.mockito/mockito-core/latest/org/mockito/Mockito.html", type: "DOCS" }
     ]
   },
   {
@@ -156,6 +179,11 @@ void updateNonExistentUserThrowsException() {
       "**Quality Shield:** Generate instant Javadocs for undocumented methods.",
       "**Security:** Detect vulnerabilities (like SQL injection risks) before compilation.",
       "**Standardization:** Enforce team coding standards across the entire codebase."
+    ],
+    links: [
+      { title: "Java Stream API Docs", url: "https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/stream/package-summary.html", type: "DOCS" },
+      { title: "OWASP Top 10", url: "https://owasp.org/www-project-top-ten/", type: "ARTICLE" },
+      { title: "Refactoring.guru", url: "https://refactoring.guru/", type: "ARTICLE" }
     ]
   },
   {
@@ -170,7 +198,11 @@ void updateNonExistentUserThrowsException() {
       "**What AI Does For You:** Automate repetitive code (DTOs, Mappers), suggest design patterns, safe refactoring, documentation generation, and error detection before compilation.",
       "**Your New Focus:** Designing business logic, defining use cases, ensuring scalable architecture (Hexagonal, Microservices), software quality (metrics, observability), and stakeholder communication."
     ],
-    cta: "From coder to solution designer. You define the course; AI accelerates the journey."
+    cta: "From coder to solution designer. You define the course; AI accelerates the journey.",
+    links: [
+      { title: "Vertex AI", url: "https://cloud.google.com/vertex-ai", type: "TOOL" },
+      { title: "Domain Driven Design", url: "https://martinfowler.com/tags/domain%20driven%20design.html", type: "ARTICLE" }
+    ]
   },
   {
     id: 8,
@@ -185,6 +217,11 @@ void updateNonExistentUserThrowsException() {
       "**Supervise, Don't Copy:** Cultivate critical thinking; you are the expert validator.",
       "**Design First:** Focus on Hexagonal Architecture and Microservices patterns."
     ],
-    cta: "Generative AI is the fuel. You are the engine. Are you ready to evolve?"
+    cta: "Generative AI is the fuel. You are the engine. Are you ready to evolve?",
+    links: [
+      { title: "Microservices.io", url: "https://microservices.io/", type: "ARTICLE" },
+      { title: "System Design Primer", url: "https://github.com/donnemartin/system-design-primer", type: "ARTICLE" },
+      { title: "Hexagonal Architecture", url: "https://alistair.cockburn.us/hexagonal-architecture/", type: "ARTICLE" }
+    ]
   }
 ];

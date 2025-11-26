@@ -11,6 +11,12 @@ export interface CodeSnippet {
   highlightLines?: number[];
 }
 
+export interface LinkResource {
+  title: string;
+  url: string;
+  type: 'DOCS' | 'TOOL' | 'ARTICLE';
+}
+
 export interface BookPage {
   id: number;
   type: PageType;
@@ -21,6 +27,7 @@ export interface BookPage {
   imageUrl?: string; // New field for specific page images
   codeSnippets?: CodeSnippet[];
   bulletPoints?: string[];
+  links?: LinkResource[]; // Official resources
   cta?: string;
 }
 
