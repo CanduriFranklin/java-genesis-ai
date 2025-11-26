@@ -18,6 +18,7 @@ export interface BookPage {
   subtitle?: string;
   content: string[]; // Paragraphs
   visualDescription?: string; // For placeholder generation
+  imageUrl?: string; // New field for specific page images
   codeSnippets?: CodeSnippet[];
   bulletPoints?: string[];
   cta?: string;

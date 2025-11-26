@@ -59,22 +59,22 @@ const App: React.FC = () => {
         {/* Cover Page Special Layout */}
         {isCover && (
           <div className="animate-fade-in-up space-y-8 py-12">
-            <div className="relative w-64 h-64 mx-auto mb-8 group">
+            <div className="relative w-64 h-64 md:w-80 md:h-80 mx-auto mb-8 group">
               <div className="absolute inset-0 bg-gradient-to-tr from-neon-purple to-neon-cyan rounded-full blur-2xl opacity-40 group-hover:opacity-60 transition-opacity duration-500 animate-pulse"></div>
               <img 
-                src="https://picsum.photos/600/600?grayscale&blur=2" 
-                alt="AI Robot with Java Crystal" 
+                src={currentPage.imageUrl || "https://picsum.photos/600/600?grayscale&blur=2"} 
+                alt="Cover" 
                 className="relative z-10 w-full h-full object-cover rounded-2xl border-2 border-white/10 shadow-2xl grayscale hover:grayscale-0 transition-all duration-700"
               />
               <div className="absolute inset-0 flex items-center justify-center z-20">
-                <Cpu size={64} className="text-white drop-shadow-[0_0_15px_rgba(0,243,255,0.8)]" />
+                <Cpu size={80} className="text-white drop-shadow-[0_0_15px_rgba(0,243,255,0.8)]" />
               </div>
             </div>
             
             <h1 className="text-6xl md:text-8xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-200 to-gray-500 mb-4 drop-shadow-sm">
               {currentPage.title}
             </h1>
-            <h2 className="text-2xl md:text-3xl font-mono text-neon-cyan tracking-widest uppercase mb-8">
+            <h2 className="text-xl md:text-3xl font-mono text-neon-cyan tracking-widest uppercase mb-8">
               {currentPage.subtitle}
             </h2>
             <p className="text-gray-400 max-w-lg mx-auto leading-relaxed border-t border-white/10 pt-6">
@@ -96,10 +96,22 @@ const App: React.FC = () => {
         {/* Content Pages */}
         {!isCover && (
           <div key={currentPage.id} className="animate-fade-in w-full py-8 md:py-12 px-4 md:px-0">
-            <div className="flex items-center space-x-4 mb-8 border-b border-white/10 pb-4">
+            <div className="flex flex-col md:flex-row md:items-center space-y-4 md:space-y-0 md:space-x-4 mb-8 border-b border-white/10 pb-4">
               <span className="text-neon-purple font-mono text-xl">0{currentPage.id}</span>
               <h2 className="text-3xl md:text-4xl font-bold text-white tracking-tight">{currentPage.title.replace(/^\d+\.\s/, '')}</h2>
             </div>
+            
+            {/* Page Header Image */}
+            {currentPage.imageUrl && (
+              <div className="w-full h-48 md:h-64 mb-8 overflow-hidden rounded-xl border border-white/10 relative group">
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent z-10"></div>
+                <img 
+                  src={currentPage.imageUrl} 
+                  alt="Chapter Visual" 
+                  className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 opacity-80 group-hover:opacity-100" 
+                />
+              </div>
+            )}
 
             <div className="space-y-6 text-lg text-gray-300 leading-relaxed font-light">
               {currentPage.content.map((paragraph, idx) => (
@@ -109,14 +121,21 @@ const App: React.FC = () => {
 
             {/* Bullet Points */}
             {currentPage.bulletPoints && (
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 my-10">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-10">
                 {currentPage.bulletPoints.map((point, idx) => {
-                  const [bold, rest] = point.split('**').filter(Boolean);
+                  const parts = point.split('**');
+                  const bold = parts[1];
+                  const rest = parts[2] || parts[0];
+                  
                   return (
-                    <div key={idx} className="glass-panel p-6 rounded-xl hover:border-neon-cyan/50 transition-colors group">
-                      <Sparkles className="text-neon-purple mb-4 group-hover:text-neon-cyan transition-colors" size={24} />
-                      <h4 className="text-white font-bold mb-2">{bold}</h4>
-                      <p className="text-sm text-gray-400">{rest}</p>
+                    <div key={idx} className="glass-panel p-5 rounded-xl border-l-2 border-l-neon-purple hover:border-l-neon-cyan hover:bg-white/5 transition-all group">
+                      <div className="flex items-start">
+                        <Sparkles className="text-neon-purple mt-1 mr-3 flex-shrink-0 group-hover:text-neon-cyan transition-colors" size={18} />
+                        <div>
+                          {bold && <h4 className="text-white font-bold mb-1">{bold}</h4>}
+                          <p className="text-sm text-gray-400 leading-relaxed">{rest}</p>
+                        </div>
+                      </div>
                     </div>
                   );
                 })}
@@ -125,7 +144,7 @@ const App: React.FC = () => {
 
             {/* Code Snippets */}
             {currentPage.codeSnippets && (
-              <div className="my-8">
+              <div className="my-8 space-y-6">
                 {currentPage.codeSnippets.map((snippet, idx) => (
                   <CodeBlock key={idx} snippet={snippet} />
                 ))}
@@ -142,6 +161,7 @@ const App: React.FC = () => {
                   <div className="mt-8 text-center text-gray-400">
                      <p className="text-sm uppercase tracking-widest mb-2">Written & Developed By</p>
                      <p className="text-neon-cyan font-mono text-lg">{AUTHOR_NAME}</p>
+                     <p className="text-xs mt-2 text-gray-500">Expert in Software Development & Emerging Technologies</p>
                   </div>
                 )}
               </div>
