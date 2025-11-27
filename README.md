@@ -1,15 +1,10 @@
 
 <!-- Banner -->
 <p align="center">
-  <img src="https://github.com/CanduriFranklin/java-genensis/raw/main/Images/imagen-robo.png" alt="Java Genesis AI Banner" width="900" />
+  <img src="https://github.com/CanduriFranklin/java-genensis/raw/main/Images/imagen-robo.png" alt="Java Genesis AI Banner" width="500" />
 </p>
 
 # A Jornada da IA: JAVA GENESIS AI - UMA VIAGEM PELO FUTURO 🌌
-
-<p align="right">
-  <img src="https://github.com/CanduriFranklin/java-genensis/raw/main/Images/fotografig-canduri-franklin.png" alt="Canduri Franklin" width="80" style="border-radius:50%" />
-</p>
-
 ---
 
 ## 🚀 Motivação e Objetivos: Java + GenAI
