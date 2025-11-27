@@ -1,13 +1,13 @@
 
 <!-- Banner -->
 <p align="center">
-  <img src="https://github.com/CanduriFranklin/java-genensis/raw/main/Images/imagen-robo.png" alt="Java Genesis AI Banner" width="300" />
+  <img src="https://github.com/CanduriFranklin/java-genensis/raw/main/Images/imagen-robo.png" alt="Java Genesis AI Banner" width="200" />
 </p>
 
 # The AI Journey: JAVA GENESIS AI - A JOURNEY INTO THE FUTURE 🌌
 
 <p align="center">
-  <img src="https://github.com/CanduriFranklin/java-genensis/raw/main/video/presentation.gif" alt="Java Genesis AI Presentation" width="600" />
+  <img src="https://github.com/CanduriFranklin/java-genensis/raw/main/video/presentation.gif" alt="Java Genesis AI Presentation" width="400" />
 </p>
 
 > **A Glimpse into the Future:** This presentation explores the transformative impact of Generative AI on the Java ecosystem, showcasing how intelligent tools will redefine the future of software development. Witness the dawn of a new era where AI and Java converge to create smarter, more efficient, and more powerful applications.
