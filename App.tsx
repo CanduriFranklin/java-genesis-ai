@@ -7,7 +7,6 @@ import { chatWithBook } from './services/geminiService';
 
 const App: React.FC = () => {
   const [currentPageIndex, setCurrentPageIndex] = useState(0);
-  const [direction, setDirection] = useState<'left' | 'right'>('right');
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [chatMessages, setChatMessages] = useState<ChatMessage[]>([
     { role: 'model', text: "Greetings, Architect. I am the Java Genesis AI Companion. Ask me anything about the manuscript." }
