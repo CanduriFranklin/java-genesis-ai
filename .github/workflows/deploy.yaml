@@ -11,19 +11,11 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: 'read'
-      id-token: 'write' # Required for Workload Identity Federation
-    env:
-      GCP_PROJECT: ${{ secrets.GCP_PROJECT }}   # set this secret to your GCP project id
-      GAR_LOCATION: us-west1 # The location of your Artifact Registry
-      SERVICE: java-genesis-ai # The name of the Cloud Run service
-      REGION: us-west1 # The region of the Cloud Run service
-      
+      id-token: 'write'
+    
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
-      - name: 'Debug: Print Project ID'
-        run: echo "The project ID from secrets is ${{ secrets.GCP_PROJECT }}"
 
       - name: Authenticate to Google Cloud
         id: auth
@@ -36,18 +28,21 @@ jobs:
         uses: google-github-actions/setup-gcloud@v2
         
       - name: Build and Push Docker image
+        env:
+          GAR_LOCATION: us-west1
+          SERVICE: java-genesis-ai
         run: |-
           gcloud auth configure-docker ${{ env.GAR_LOCATION }}-docker.pkg.dev
-          docker build -t ${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.GCP_PROJECT }}/${{ env.SERVICE }}:${{ github.sha }} .
-          docker push ${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.GCP_PROJECT }}/${{ env.SERVICE }}:${{ github.sha }}
+          docker build -t ${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/${{ env.SERVICE }}:${{ github.sha }} .
+          docker push ${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/${{ env.SERVICE }}:${{ github.sha }}
           
       - name: Deploy to Cloud Run
         id: deploy
         uses: google-github-actions/deploy-cloudrun@v2
         with:
-          service: ${{ env.SERVICE }}
-          region: ${{ env.REGION }}
-          image: ${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.GCP_PROJECT }}/${{ env.SERVICE }}:${{ github.sha }}
+          service: java-genesis-ai
+          region: us-west1
+          image: us-west1-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/java-genesis-ai:${{ github.sha }}
           flags: '--allow-unauthenticated'
           env_vars: |
             API_KEY=${{ secrets.API_KEY }}
