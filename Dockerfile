@@ -14,14 +14,13 @@ RUN npm run build
 # Stage 2: Serve the static files with Nginx
 FROM nginx:1.21.0-alpine
 
-# Copy the custom nginx configuration
+# Copy the custom nginx configuration and the startup script
 COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY start-nginx.sh /start-nginx.sh
+RUN chmod +x /start-nginx.sh
 
-# Copy the built assets from the build stage
-COPY --from=build /app/dist /usr/share/nginx/html
-
-# Expose port 8080
+# Expose port 8080 - This is informational for Docker, Cloud Run uses the PORT env var
 EXPOSE 8080
 
-# The default nginx entrypoint will start the server
-CMD ["nginx", "-g", "daemon off;"]
+# Run the startup script
+CMD ["/start-nginx.sh"]
