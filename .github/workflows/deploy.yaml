@@ -25,7 +25,14 @@ jobs:
           service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
 
       - name: Set up Cloud SDK
-        uses: google-github-actions/setup-gcloud@v2
+        uses: google--actions/setup-gcloud@v2
+
+      - name: 'Debug: Print Docker Image Name'
+        env:
+          GAR_LOCATION: us-west1
+          SERVICE: java-genesis-ai
+        run: |
+          echo "Attempting to build and push image: ${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/${{ env.SERVICE }}:${{ github.sha }}"
         
       - name: Build and Push Docker image
         env:
