@@ -23,18 +23,19 @@ jobs:
         with:
           workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
           service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
-
+          project_id: ${{ secrets.GCP_PROJECT }}
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v2
         
       - name: Build and Push Docker image
         env:
           GAR_LOCATION: us-west1
+          REPO: java-genesis-ai   
           SERVICE: java-genesis-ai
         run: |-
           gcloud auth configure-docker ${{ env.GAR_LOCATION }}-docker.pkg.dev
-          docker build -t ${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/${{ env.SERVICE }}/app:${{ github.sha }} .
-          docker push ${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/${{ env.SERVICE }}/app:${{ github.sha }}
+          docker build -t ${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/${{ env.REPO }}/app:${{ github.sha }} .
+          docker push ${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/${{ env.REPO }}/app:${{ github.sha }}
           
       - name: Deploy to Cloud Run
         id: deploy
