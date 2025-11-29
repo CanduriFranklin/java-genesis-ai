@@ -17,10 +17,12 @@ RUN npm run build
 # Stage 2: Serve the static files with Nginx
 FROM nginx:1.21.0-alpine
 
-# Copy only the built assets from the build stage
+# Copy the built assets from the build stage
 COPY --from=build /app/dist /usr/share/nginx/html
 
-# The default nginx.conf is sufficient for a basic SPA, so no custom config is needed
+# Update the default Nginx configuration to listen on port 8080.
+# This is the only change needed for Cloud Run.
+RUN sed -i 's/listen   80;/listen   8080;/' /etc/nginx/conf.d/default.conf
 
 # Expose the port Cloud Run expects
 EXPOSE 8080
