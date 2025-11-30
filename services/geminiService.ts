@@ -1,24 +1,30 @@
-import { GoogleGenAI } from "@google/genai";
+import { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } from "@google/generative-ai";
 import { BOOK_PAGES } from "../constants";
 
-let ai: GoogleGenAI | null = null;
+const API_KEY = process.env.REACT_APP_API_KEY;
+let genAI: GoogleGenerativeAI | null = null;
 
-export const initializeGenAI = () => {
-  if (!process.env.API_KEY) {
-    console.warn("API_KEY not found in environment.");
+const initializeGenAI = () => {
+  if (genAI) {
+    return;
+  }
+  if (!API_KEY) {
+    console.error("API_KEY not found. Please set the REACT_APP_API_KEY environment variable.");
     return;
   }
   try {
-    ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+    genAI = new GoogleGenerativeAI(API_KEY);
   } catch (error) {
-    console.error("Failed to initialize GoogleGenAI", error);
+    console.error("Failed to initialize GoogleGenerativeAI", error);
   }
 };
 
+initializeGenAI();
+
 export const chatWithBook = async (userQuestion: string): Promise<string> => {
-  if (!ai) {
+  if (!genAI) {
     initializeGenAI();
-    if (!ai) return "I'm sorry, I can't connect to the AI right now. Please check your API key configuration.";
+    if (!genAI) return "I'm sorry, I can't connect to the AI right now. Please check your API key configuration.";
   }
 
   // Construct context from the book content
@@ -39,17 +45,36 @@ export const chatWithBook = async (userQuestion: string): Promise<string> => {
   `;
 
   try {
-    const response = await ai!.models.generateContent({
-        model: 'gemini-2.5-flash',
-        contents: userQuestion,
-        config: {
-            systemInstruction: systemPrompt,
-        }
+    const model = genAI!.getGenerativeModel({
+      model: "gemini-2.5-flash",
+      systemInstruction: systemPrompt,
+      safetySettings: [
+        {
+          category: HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT,
+          threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+        },
+        {
+          category: HarmCategory.HARM_CATEGORY_HATE_SPEECH,
+          threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+        },
+        {
+          category: HarmCategory.HARM_CATEGORY_HARASSMENT,
+          threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+        },
+        {
+          category: HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT,
+          threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+        },
+      ],
     });
 
-    return response.text || "I couldn't generate a response.";
+    const result = await model.generateContent(userQuestion);
+    const response = result.response;
+    const text = response.text();
+
+    return text || "I couldn't generate a response.";
   } catch (error) {
     console.error("Error generating content:", error);
-    return "An error occurred while consulting the neural network.";
+    return "An error occurred while consulting the neural network. Please try again later.";
   }
 };
